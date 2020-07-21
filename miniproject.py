@@ -9,10 +9,11 @@ class Student:
         self.root = root
         self.root.title("Student Management System")
         self.root.geometry("1350x700+0+0")
+        self.root.resizable(True, True)
         
         # top label , bg = background color, fg = text color, bd = border
         title = Label(self.root, text = "Student Management System",  bd = 8, relief = GROOVE, font = ("times new roman", 40, "bold"), bg = "white", fg = "black")
-        title.pack(side = TOP, fill = X)   
+        title.pack(side = TOP, fill = BOTH)   
 
         #variables name for entry
         self.Roll_no_var = StringVar()
@@ -27,7 +28,7 @@ class Student:
 
    # left frame(entry section)
         leftframe = Frame(self.root, bd = 4, relief = RIDGE, bg = "white")
-        leftframe.place(x = 110, y = 100, width = 550, height = 800)
+        leftframe.pack(side=LEFT, fill=BOTH, padx=10, pady=10)
         
         # left frame title
         lefttitle = Label(leftframe, text = "Manage Students",bg = "white", font = ("times new roman", 28, "bold"))
@@ -90,12 +91,13 @@ class Student:
         deletebtn = Button(leftframe, text = "Delete", width=15, command = self.delete).grid(row = 11, column = 0, padx=10,pady=10)
         clearbtn = Button(leftframe, text = "Clear", width=15, command = self.clear).grid(row = 11, column = 1, padx=10,pady=10)
        
-   
+        #leftframe.rowconfigure(0,weight=1)                                   #resizability of the internal widgets with window size (at the moment)
+        #leftframe.columnconfigure(0,weight=1)   
 
 
    # right frame(detail section)
         rightframe = Frame(self.root, bd = 4, relief = RIDGE, bg = "white")
-        rightframe.place(x = 730, y = 100, width = 1050, height = 800)
+        rightframe.pack(side=RIGHT, fill=BOTH, padx=10, pady=10)
 
      # search by
         lbl_seach = Label(rightframe, text = "Search By", bg = "white", font = ("times new roman", 20, "bold"))
@@ -134,15 +136,19 @@ class Student:
         self.studenttable.heading("DOB", text = "DOB")
         self.studenttable.heading("Branch", text = "Branch")
         self.studenttable['show'] = 'headings'
-        self.studenttable.column("Roll Number", width = 140)
-        self.studenttable.column("Name", width = 300)
+        
+        self.studenttable.column("Roll Number", width = 100)
+        self.studenttable.column("Name", width = 200)
         self.studenttable.column("Email", width = 200)
-        self.studenttable.column("Sex", width = 140)
-        self.studenttable.column("Contact", width = 140)
-        self.studenttable.column("DOB", width = 140)
+        self.studenttable.column("Sex", width = 40)
+        self.studenttable.column("Contact", width = 100)
+        self.studenttable.column("DOB", width = 100)
         self.studenttable.column("Branch", width = 140)
         
-        self.studenttable.pack(fill = BOTH, expand = 1)
+        self.studenttable.pack(fill = BOTH)
+        #rightframe.rowconfigure(1,weight=1)
+        #rightframe.columnconfigure(1,weight=1)
+        
         # fetch data to table
         self.fetch_data()
         # bind cursor
